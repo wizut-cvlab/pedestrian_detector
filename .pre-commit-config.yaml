@@ -1,0 +1,40 @@
+repos:
+  - repo: 'https://github.com/pre-commit/pre-commit-hooks'
+    rev: v2.1.0
+    hooks:
+      - id: check-case-conflict
+        name: '(files) -- check-case-conflict'
+
+      - id: check-executables-have-shebangs
+        name: '(code) -- check-executables-have-shebangs'
+        types:
+          - bash
+          - executable
+
+      - id: trailing-whitespace
+        name: '(code) -- trailing-whitespace'
+
+        # args: [--markdown-linebreak-ext=md]
+      - id: check-json
+        name: '(code) -- check-json'
+
+      - id: mixed-line-ending
+        name: '(code) -- mixed-line-ending'
+        args:
+          - '--fix=lf'
+
+      - id: end-of-file-fixer
+        name: '(code) -- end-of-line-fixer'
+
+      - id: check-merge-conflict
+        name: '(git) -- check-merge-conflict'
+
+      - id: no-commit-to-branch
+        name: '(git) -- no-commit-to-branch'
+        args:
+          - '-b master'
+
+  - repo: 'https://github.com/psf/black'
+    rev: 19.3b0
+    hooks:
+      - id: black
