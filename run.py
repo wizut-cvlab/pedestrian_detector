@@ -1,11 +1,8 @@
-import config
-from scripts import forEachImage
-from scripts import detectPedestrianOnImage
 import cv2
-
-
-def test(a, b="a"):
-    print(a, b)
+import config
+from scripts import detectPedestrianOnImage
+from scripts import forEachImage
+from scripts import saveResults
 
 
 trackers = cv2.MultiTracker_create()
@@ -22,6 +19,6 @@ forEachImage(
     config.IMAGES_DIRECTORY,
     detectPedestrianOnImage,
     {"cascade": cascade, "tracker": tracker, "trackers": trackers},
+    saveResults,
+    {"resultsFolder": config.RESULTS_FOLDER},
 )
-
-# folderFunction=test, folderFunctionArgs = {'a':'a', "b":"b"}

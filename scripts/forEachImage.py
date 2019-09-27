@@ -7,9 +7,9 @@ import cv2
 def forEachImage(
     folder,
     imageFunction,
-    imageFunctionArgs=[],
+    imageFunctionArgs={},
     folderFunction=None,
-    folderFunctionArgs=[],
+    folderFunctionArgs={},
 ):
     allImagesResults = []
     foldersResults = []
@@ -27,10 +27,12 @@ def forEachImage(
                 continue
             image = cv2.cvtColor(greyImage, cv2.COLOR_GRAY2RGB)
             imageResult = imageFunction(image, imageResult, **imageFunctionArgs)
-            imageFunctionResults.append(imageResult)
-            allImagesResults.append(imageResult)
+            imageFunctionResults.append({"file": fileName, "results": imageResult})
+            allImagesResults.append(
+                {"file": subFolder + "/" + fileName, "results": imageResult}
+            )
         if folderFunction:
             foldersResults.append(
-                folderFunction(imageFunctionResults, **folderFunctionArgs)
+                folderFunction(subFolder, imageFunctionResults, **folderFunctionArgs)
             )
     return [allImagesResults, foldersResults]
