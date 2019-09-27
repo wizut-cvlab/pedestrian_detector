@@ -32,9 +32,11 @@ def detectPedestrianOnImage(image, previousResults, cascade, trackers, tracker):
     else:
         meanIOU = 0
     cv2.imshow("detections", image)
-    print(properlyDetectedObjects, trackedObjectsNum, meanIOU)
+    wrongDetections = detectedObjects - properlyDetectedObjects
+    print(properlyDetectedObjects, trackedObjectsNum, wrongDetections, meanIOU)
     return {
         "trackingObjects": trackedObjectsNum,
         "properlyDetectedObjects": properlyDetectedObjects,
+        "wrongDetections": wrongDetections,
         "meanIOU": meanIOU,
     }

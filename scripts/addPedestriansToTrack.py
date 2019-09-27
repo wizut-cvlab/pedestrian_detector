@@ -1,12 +1,15 @@
 import cv2
+from .drawBoxes import drawBoxes
 
 
 def addPedestriansToTrack(image, trackers, tracker):
     markedObjects = 0
     while True:
-        markedObjects = markedObjects + 1
         manualMarking = cv2.selectROI("Mark pedestrian to track", image)
-        trackers.add(tracker(), image, manualMarking)
+        if manualMarking != (0, 0, 0, 0):
+            markedObjects = markedObjects + 1
+            trackers.add(tracker(), image, manualMarking)
+            drawBoxes(image, [manualMarking])
         print("Hit Enter to continue")
         print("Hit any other key to add next object")
         key = cv2.waitKey(0)
