@@ -6,10 +6,16 @@ from .calculateIOU import calculateIOU
 from .drawBoxes import drawBoxes
 
 
-def detectPedestrianOnImage(image, previousResults, cascade, trackers, tracker):
-    (trackingSuccess, trackingBoxes) = trackers.update(image)
-    trackedObjectsNum = len(trackingBoxes)
-    drawBoxes(image, trackingBoxes)
+def detectPedestrianOnImage(image, previousResults, cascade, tracker):
+    if "trackers" in previousResults:
+        trackers = previousResults["trackers"]
+        (trackingSuccess, trackingBoxes) = trackers.update(image)
+        trackedObjectsNum = len(trackingBoxes)
+        drawBoxes(image, trackingBoxes)
+    else:
+        trackers = None
+        trackedObjectsNum = 0
+        trackingBoxes = []
     key = cv2.waitKey(config.DISPLAY_FRAME_IN_MILLISEC)
     if (
         previousResults == {}
@@ -19,8 +25,9 @@ def detectPedestrianOnImage(image, previousResults, cascade, trackers, tracker):
             and previousResults["trackingObjects"] != trackedObjectsNum
         )
     ):
-        [trackers, newObjectsToTrack] = addPedestriansToTrack(image, trackers, tracker)
-        trackedObjectsNum = trackedObjectsNum + newObjectsToTrack
+        [trackers, trackedObjectsNum] = addPedestriansToTrack(
+            image, tracker, trackers, trackedObjectsNum
+        )
     detections = cascade.detectMultiScale(image, 1.02, 3)
     drawBoxes(image, detections, (255, 0, 0))
     [cumulativeIOU, properlyDetectedObjects, objectsIOU] = calculateIOU(
@@ -37,6 +44,7 @@ def detectPedestrianOnImage(image, previousResults, cascade, trackers, tracker):
     return {
         "trackingObjects": trackedObjectsNum,
         "properlyDetectedObjects": properlyDetectedObjects,
+        "trackers": trackers,
         "wrongDetections": wrongDetections,
         "meanIOU": meanIOU,
     }

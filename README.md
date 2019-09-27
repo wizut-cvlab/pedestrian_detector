@@ -20,6 +20,8 @@ Every time, when:
 -`space` key was pressed,  
 Starts window for select objects for trucking. You need to mark object for frucking using your mouse, then press `space`, to confirm selection. After that you can select another object (pressing `space` one more time), or configm all selected objects by pressing `return`/`enter`.
 
+For clear tracking object You should hit backspace in tracking object selection. Unfortunately old tracking boxes still be present on this window.
+
 In real time you can see frame/image, with:  
 -green border box - tracked elements,  
 -blue border box - detected objects.
