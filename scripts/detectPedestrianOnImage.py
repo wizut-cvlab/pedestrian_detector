@@ -24,6 +24,13 @@ def detectPedestrianOnImage(image, previousResults, cascade, tracker):
             "trackingObjects" in previousResults
             and previousResults["trackingObjects"] != trackedObjectsNum
         )
+        or (
+            "properlyDetectedObjects" in previousResults
+            and "wrongDetections" in previousResults
+            and previousResults["properlyDetectedObjects"]
+            + previousResults["wrongDetections"]
+            > trackedObjectsNum
+        )
     ):
         [trackers, trackedObjectsNum] = addPedestriansToTrack(
             image, tracker, trackers, trackedObjectsNum
