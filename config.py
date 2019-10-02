@@ -4,8 +4,8 @@ IMAGES_DIRECTORY = ".\\images\\"
 
 CASCADE_PATH = ".\\cascades\\maruda.xml"
 
-DISPLAY_FRAME_IN_MILLISEC = 100
+DISPLAY_FRAME_IN_MILLISEC = 30
 
-MINIMUM_IOU = 0.5
+MINIMUM_IOU = 0.3
 
 RESULTS_FOLDER = ".\\results\\"
