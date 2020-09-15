@@ -30,6 +30,7 @@ In real time you can see frame/image, with:
 Inside folder `./images/` we assume exist several folders for different images sequences.
 
 All image datasets is located into `images.7z` archive.
+The archive you can download from: https://cvlab.zut.edu.pl/pedestrian_detector/images.7z
 
 ## Results
 The scripts for each sequences (folders in `./images/`) save a `.txt` file inside `./results/` folder.
